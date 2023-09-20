@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th=http://www.thymeleaf.org>
+
+<head th:replace="/cascaron/template :: head">
+	<meta charset="UTF-8">
+	<title>Expedientes</title>
+</head>
+
+<body>
+	<header th:replace="/cascaron/template :: header"></header>
+
+<div class="container">
+    <h1>Detalle de Expediente</h1>
+    <div class="card" style="max-width: 400px;">
+        <div class="card-body">
+            <p class="card-text"><strong>ExpedienteID:</strong> <span th:text="${expediente.expedienteid}"></span></p>
+            <p class="card-text"><strong>Nombre de la Mascota:</strong> <span th:text="${expediente.nombrepaciente}"></span></p>
+            <p class="card-text"><strong>Especie:</strong> <span th:text="${expediente.especie}"></span></p>
+            <p class="card-text"><strong>Sexo:</strong> <span th:text="${expediente.sexo}"></span></p>
+            <p class="card-text"><strong>Color:</strong> <span th:text="${expediente.color}"></span></p>
+            <p class="card-text"><strong>Nombre Propietario:</strong> <span th:text="${expediente.nombrepropietario}"></span></p>
+            <p class="card-text"><strong>Direccion:</strong> <span th:text="${expediente.direccion}"></span></p>
+            <p class="card-text"><strong>Telefono:</strong> <span th:text="${expediente.telefono}"></span></p>
+            <p class="card-text"><strong>Medico Referido:</strong> <span th:text="${expediente.medicoreferido}"></span></p>
+            <p class="card-text"><strong>IdCompuesto:</strong> <span th:text="${expediente.idcompuesto}"></span></p>
+        </div>
+    </div>
+</div>
+
+
+
+	<footer th:replace="/cascaron/template :: footer"></footer>
+</body>
+
+</html>

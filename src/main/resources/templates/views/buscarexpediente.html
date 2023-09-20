@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th=http://www.thymeleaf.org>
+
+<head th:replace="/cascaron/template :: head">
+	<meta charset="UTF-8">
+	<title>Buscar Expediente por ID</title>
+</head>
+
+<body>
+	<header th:replace="/cascaron/template :: header"></header>
+
+	<div class="container">
+		<h1 class="display-4 text-center mb-5">Buscar Expediente por ID</h1>
+		<form th:action="@{/secretaria/buscaexpediente}" method="post" class="text-center">
+			<label for="expedienteId">ID del Expediente:</label>
+			<input type="text" id="expedienteId" name="expedienteId" required>
+			<button type="submit" class="btn btn-primary">Buscar</button>
+		</form>
+
+		<div th:if="${expediente != null}" class="mt-4 mb-4">
+			<div class="container">
+				<h1 class="display-6 text-center mb-5">Detalle de Expediente</h1>
+				<div class="card mx-auto my-4" style="max-width: 400px;">
+					<div class="card-body">
+						<p class="card-text"><strong>ExpedienteID:</strong> <span
+								th:text="${expediente.expedienteid}"></span></p>
+						<p class="card-text"><strong>Nombre de la Mascota:</strong> <span
+								th:text="${expediente.nombrepaciente}"></span></p>
+						<p class="card-text"><strong>Especie:</strong> <span th:text="${expediente.especie}"></span></p>
+						<p class="card-text"><strong>Sexo:</strong> <span th:text="${expediente.sexo}"></span></p>
+						<p class="card-text"><strong>Color:</strong> <span th:text="${expediente.color}"></span></p>
+						<p class="card-text"><strong>Nombre Propietario:</strong> <span
+								th:text="${expediente.nombrepropietario}"></span></p>
+						<p class="card-text"><strong>Direccion:</strong> <span th:text="${expediente.direccion}"></span>
+						</p>
+						<p class="card-text"><strong>Telefono:</strong> <span th:text="${expediente.telefono}"></span>
+						</p>
+						<p class="card-text"><strong>Medico Referido:</strong> <span
+								th:text="${expediente.medicoreferido}"></span></p>
+						<p class="card-text"><strong>IdCompuesto:</strong> <span
+								th:text="${expediente.idcompuesto}"></span></p>
+
+						<button type="button" class="btn btn-danger" id="limpiarBoton">Limpiar</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<footer th:replace="/cascaron/template :: footer"></footer>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const limpiarBoton = document.getElementById("limpiarBoton");
+
+			limpiarBoton.addEventListener("click", function () {
+				// Encuentra la tarjeta de detalles
+				const tarjetaDetalle = document.querySelector(".card.mx-auto");
+
+				// Encuentra todos los elementos de texto en la tarjeta
+				const elementosTexto = tarjetaDetalle.querySelectorAll("span");
+
+				// Limpia el contenido de los elementos de texto
+				elementosTexto.forEach(function (elemento) {
+					elemento.textContent = ""; // Esto borrará el contenido
+				});
+			});
+		});
+	</script>
+
+</body>
+
+</html>
