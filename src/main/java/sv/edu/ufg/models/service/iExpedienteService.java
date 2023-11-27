@@ -11,4 +11,11 @@ public interface iExpedienteService {
 	public void save(Expediente expediente);
 	public Expediente searchById(Integer ExpedienteID);
 	public void delete(Integer ExpedienteID);
+	
+	public Expediente searchByStringId(String idCompuesto);
+	
+	List<Expediente> searchByNombrePropietario(String nombrepropietario);
+	
+	List<Expediente> buscarPorNombrePaciente(String nombrepaciente);
+
 }

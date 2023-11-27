@@ -31,11 +31,30 @@ public class ExpedienteServiceImpl implements iExpedienteService {
 		// TODO Auto-generated method stub
 		return expedienteRepository.findById(ExpedienteID).orElse(null);
 	}
+	
+	@Override
+    public Expediente searchByStringId(String idCompuesto) {
+        // Implement your custom query here
+        // Assuming that idCompuesto is a unique identifier
+        return expedienteRepository.findByIdCompuesto(idCompuesto);
+    }
 
 	@Override
 	public void delete(Integer ExpedienteID) {
 		// TODO Auto-generated method stub
 		expedienteRepository.deleteById(ExpedienteID);
 	}
+
+	@Override
+	public List<Expediente> searchByNombrePropietario(String nombrepropietario) {
+		// TODO Auto-generated method stub
+		return expedienteRepository.findByNombrepropietarioIgnoreCaseContaining(nombrepropietario);
+	}
+	
+	@Override
+    public List<Expediente> buscarPorNombrePaciente(String nombrepaciente) {
+        // Implementación del método
+        return expedienteRepository.findByNombrepacienteIgnoreCaseContaining(nombrepaciente);
+    }
 
 }

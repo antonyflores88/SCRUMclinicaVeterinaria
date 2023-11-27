@@ -2,11 +2,11 @@ package sv.edu.ufg.models.entity;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "expediente")
@@ -16,19 +16,53 @@ public class Expediente implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
+	@Column(name = "expedienteid")
 	private int expedienteid;
+	
+	@NotEmpty(message="El nombre de la mascota es requerido")
+	@Column(name = "nombre_mascota")
 	private String nombrepaciente;
+	
+	@NotEmpty(message="El nombre del propietario es requerido")
+	@Column(name = "nombre_propietario")
 	private String nombrepropietario;
+	
+	@NotEmpty(message="El campo 'especie' es requerido")
 	private String especie;
+	@NotEmpty(message="El campo 'sexo' es requerido")
 	private String sexo;
+	@NotEmpty(message="El campo 'raza' es requerido")
 	private String raza;
+	@NotEmpty(message="El campo 'color' es requerido")
 	private String color;
+	@NotEmpty(message="El campo 'direccion' es requerido")
 	private String direccion;
+	
+	@NotEmpty(message="Debe ingresar un numero telefonico")
 	private String telefono;
+	
 	private String medicoreferido;
-	private int idcompuesto;
+	
+	@Id
+	@NotEmpty(message="Presione 'Generar ID' para llenar este campo")
+	@Column(name = "id_compuesto")
+    private String idCompuesto;
+	
+
+	/**
+	 * @return the idCompuesto
+	 */
+	public String getIdCompuesto() {
+		return idCompuesto;
+	}
+	/**
+	 * @param idCompuesto the idCompuesto to set
+	 */
+	public void setIdCompuesto(String idCompuesto) {
+		this.idCompuesto = idCompuesto;
+	}
+	
 	
 	//Metodos consultores y modificadores.
 	/**
@@ -151,24 +185,15 @@ public class Expediente implements Serializable {
 	public void setMedicoreferido(String medicoreferido) {
 		this.medicoreferido = medicoreferido;
 	}
-	/**
-	 * @return the idcompuesto
-	 */
-	public int getIdcompuesto() {
-		return idcompuesto;
-	}
-	/**
-	 * @param idcompuesto the idcompuesto to set
-	 */
-	public void setIdcompuesto(int idcompuesto) {
-		this.idcompuesto = idcompuesto;
-	}
+
+	
+	
 	@Override
 	public String toString() {
 		return "Expediente [expedienteid=" + expedienteid + ", nombrepaciente=" + nombrepaciente
 				+ ", nombrepropietario=" + nombrepropietario + ", especie=" + especie + ", sexo=" + sexo + ", raza="
 				+ raza + ", color=" + color + ", direccion=" + direccion + ", telefono=" + telefono
-				+ ", medicoreferido=" + medicoreferido + ", idcompuesto=" + idcompuesto + "]";
+				+ ", medicoreferido=" + medicoreferido + ", idCompuesto=" + idCompuesto + "]";
 	}
 	
 	
