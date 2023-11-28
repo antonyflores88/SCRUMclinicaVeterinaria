@@ -119,10 +119,28 @@ public class DiagnosticoController {
 
         model.addAttribute("mostrarAlerta2", true);
         model.addAttribute("mensaje", "Guardado exitosamente");
-
-        return "redirect:/diagnostico/iniciarconsulta";
+        
+        int idDiagnostico = diagnostico.getIdDiagnostico();
+        int idVacuna = vacunas.getIdVacuna();
+        int idExamen = examenes.getIdExamen() ;
+        
+        
+        return "redirect:/diagnostico/revisarConsulta?id=" + idDiagnostico + "&idVacuna=" + idVacuna + "&idExamen=" + idExamen;
     }
 	
+	@GetMapping("/revisarConsulta")
+	public String revisarConsultaTerminada(@RequestParam Integer id,@RequestParam int idExamen,@RequestParam int idVacuna, Model model) {
+		
+		Diagnostico diagnostico = diagnosticoservice.searchById(id);
+		Examenes examen = examenservicio.searchById(idExamen);
+		Vacunas vacuna = vacunaservicio.searchById(idVacuna);
+		
+		model.addAttribute("diagnostico", diagnostico);
+		model.addAttribute("examen", examen);
+		model.addAttribute("vacuna", vacuna);
+		
+		return "views/revision-de-consulta";
+	}
 	
 
 }
