@@ -1,53 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th=http://www.thymeleaf.org>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Inicio</title>
-<link th:href="@{/css/estilitos.css}" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bienvenidos</title>
+	<!-- Bootstrap CSS -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-	<header th:replace="/cascaron/template :: header"></header>
 
-	<div class="container centered card-container">
-        <div class="card text-center mb-3 mx-3" style="width: 18rem;">
-            <div class="card-body mb-3">
-                <h5 class="card-title">
-                    <i class="fas fa-user"></i> Secretaria
-                </h5>
-                <p class="card-text">
-                    Herramientas para la secretaria
-                </p>
-                <a href="/secretaria/opciones" class="btn btn-primary">Accesar</a>
-            </div>
-        </div>
+	<div class="container mt-5">
+		<div class="jumbotron">
+			<h1 class="display-4">¡Bienvenidos!</h1>
+			<p class="lead">Esta Applicacion fue construida siguiendo la metodologia agil Scrum.</p>
+			<hr class="my-4">
+			<p>Puedes ingresar al contenido por este logeo.</p>
+			<a class="btn btn-primary btn-lg" th:href="@{/secretaria/logeosecretaria}" role="button">Acceder</a>
+			</form>
+		</div>
+	</div>
 
-        <div class="card text-center card mb-3 mx-3" style="width: 18rem;">
-            <div class="card-body mb-3">
-                <h5 class="card-title">
-                    <i class="fas fa-briefcase"></i> Dueño
-                </h5>
-                <p class="card-text">
-                    Herramientas del dueño
-                </p>
-                <a href="#" class="btn btn-primary">Accesar</a>
-            </div>
-        </div>
+	<!-- Bootstrap JS and Popper.js (Optional) -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-        <div class="card text-center card mb-3 mx-3" style="width: 18rem;">
-            <div class="card-body mb-3">
-                <h5 class="card-title">
-                    <i class="fas fa-paw"></i> Veterinario
-                </h5>
-                <p class="card-text">
-                    Herramientas del veterinario
-                </p>
-                <a href="/diagnostico/veterinario" class="btn btn-primary">Accesar</a>
-            </div>
-        </div>
-    </div>
-
-	</body>
-	
-<footer th:replace="/cascaron/template :: footer"></footer>
+</body>
 
 </html>

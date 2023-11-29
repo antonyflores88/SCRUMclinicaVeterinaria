@@ -1,6 +1,7 @@
 package sv.edu.ufg.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,16 +42,19 @@ public class DiagnosticoController {
 	private ICitaService citaservice;
 	
 	
+	@PreAuthorize("hasRole('VETERINARIO')")
 	@GetMapping("/veterinario")
     public String mostrarVeterinarioconsulta() {
         return "views/consulta-veterinario";
     }
 	
+	@PreAuthorize("hasRole('VETERINARIO')")
 	@GetMapping("/iniciarconsulta")
     public String mostrarVistaBusqueda() {
         return "views/iniciar-consulta";
     }
 	
+	@PreAuthorize("hasRole('VETERINARIO')")
 	@PostMapping("/iniciarconsulta")
 	public String buscarExpedientePorId(@RequestParam("idCompuesto") String idCompuesto,
 	        @RequestParam("idcitas") Integer idcitas,Model model) {
@@ -76,6 +80,7 @@ public class DiagnosticoController {
 	}
 	
 	
+	@PreAuthorize("hasRole('VETERINARIO')")
 	@GetMapping("/crearconsulta/{idCompuesto}/{idcitas}")
     public String crearConsulta(@PathVariable("idCompuesto") String idcompuesto,@PathVariable("idcitas") Integer idcitas, 
     		Model model) {
@@ -105,6 +110,7 @@ public class DiagnosticoController {
 		
 		}
 	
+	@PreAuthorize("hasRole('VETERINARIO')")
 	@PostMapping("/guardarconsulta")
     public String guardarVacunasExamenesDiagnostico(@ModelAttribute("vacunas") Vacunas vacunas,
             @ModelAttribute("examenes") Examenes examenes,@ModelAttribute("diagnostico") Diagnostico diagnostico,
@@ -128,6 +134,8 @@ public class DiagnosticoController {
         return "redirect:/diagnostico/revisarConsulta?id=" + idDiagnostico + "&idVacuna=" + idVacuna + "&idExamen=" + idExamen;
     }
 	
+	
+	@PreAuthorize("hasRole('VETERINARIO')")
 	@GetMapping("/revisarConsulta")
 	public String revisarConsultaTerminada(@RequestParam Integer id,@RequestParam int idExamen,@RequestParam int idVacuna, Model model) {
 		
