@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +37,7 @@ public class CitasController {
 	@Autowired
 	private IVeterinariosService veterinarioService;
 	
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
 	@GetMapping("/mostrarcita")
 	public String showCitas(Model model) {
 		List<Citas> citasdisponibles = citaService.listAll();
@@ -46,7 +47,7 @@ public class CitasController {
 		return "views/listadecitas";		
 	}
 	
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
 	@GetMapping("/disponibles")
 	public String showAvailableSlots(
 	    @RequestParam(value = "fecha_cita", required = false) LocalDate fecha_cita,
@@ -93,7 +94,7 @@ public class CitasController {
 	}
 	
 
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
 	@GetMapping("/crearcita")
 	public String crearCita(@RequestParam(name = "veterinario_asignado", required = true) Integer veterinario_asignado, 
 			 @RequestParam(name = "fecha", required = true) LocalDate fecha,
@@ -117,7 +118,7 @@ public class CitasController {
 	}
     
 
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
 	@PostMapping("/save")
 	public String saveCita(@Valid @ModelAttribute ("cita") Citas cita,
 			BindingResult bindingResult, Model model, RedirectAttributes redirectAttr) {
@@ -143,13 +144,13 @@ public class CitasController {
 	
 	}
 	
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
 	@GetMapping("/buscarcita")
     public String mostrarBusquedaCita() {
         return "views/buscacita";
     }
 	
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
 	@PostMapping("/buscarcita")
 	public String buscarCitaporPropietario(@RequestParam("dueno_mascota") String dueno_mascota,
 			@RequestParam(value = "fecha_cita", required = false) LocalDate fecha_cita,
@@ -182,7 +183,7 @@ public class CitasController {
         return "views/buscacita";
     }
 	
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
 	 @GetMapping("/cita/{veterinario_asignado}/{idcitas}")
 		public String mostrarDetalleExpediente(@PathVariable Integer veterinario_asignado,@PathVariable Integer idcitas, Model model) {
 		    // Recuperar la cita
@@ -201,7 +202,7 @@ public class CitasController {
 		    return "views/cancelacion";
 		}
 	 
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
 	 @PostMapping("/cancelarCita")
 	 public String cancelarCita(@RequestParam("idcitas") Integer idcitas, RedirectAttributes redirectAttr) {
 		
@@ -212,7 +213,7 @@ public class CitasController {
 	     return "redirect:/secretaria/opciones"; 
 	 }
 	 
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
 	 @GetMapping("/edit/{veterinario_asignado}/{idcitas}")
 	 public String editarCita(@PathVariable Integer veterinario_asignado,@PathVariable Integer idcitas, RedirectAttributes redirectAttr, 
 			 Model model) {

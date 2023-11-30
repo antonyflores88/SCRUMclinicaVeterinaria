@@ -15,10 +15,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((requests) -> requests
+				.requestMatchers("/diagnostico/**").hasRole("VETERINARIO")
+				.requestMatchers("/views/citas/**").hasRole("SECRETARIA")
 				.requestMatchers("/", "/home", "/index").permitAll()
 				.anyRequest().authenticated()
 			)
@@ -36,14 +39,14 @@ public class SecurityConfig {
 		UserDetails secretaria =
 			 User.withDefaultPasswordEncoder()
 				.username("secretaria")
-				.password("contra100")
+		        .password("contra")
 				.roles("SECRETARIA")
 				.build();
 		
 		UserDetails veterinario =
 				 User.withDefaultPasswordEncoder()
 					.username("veterinario")
-					.password("contra200")
+			        .password("contra")
 					.roles("VETERINARIO")
 					.build();
 

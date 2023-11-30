@@ -1,7 +1,7 @@
 package sv.edu.ufg.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,45 +42,48 @@ public class DiagnosticoController {
 	private ICitaService citaservice;
 	
 	
-	@PreAuthorize("hasRole('VETERINARIO')")
+	@Secured("VETERINARIO")
 	@GetMapping("/veterinario")
     public String mostrarVeterinarioconsulta() {
         return "views/consulta-veterinario";
     }
 	
-	@PreAuthorize("hasRole('VETERINARIO')")
+	@Secured("VETERINARIO")
 	@GetMapping("/iniciarconsulta")
     public String mostrarVistaBusqueda() {
         return "views/iniciar-consulta";
     }
 	
-	@PreAuthorize("hasRole('VETERINARIO')")
+	@Secured("VETERINARIO")
 	@PostMapping("/iniciarconsulta")
 	public String buscarExpedientePorId(@RequestParam("idCompuesto") String idCompuesto,
-	        @RequestParam("idcitas") Integer idcitas,Model model) {
-	    if (!idCompuesto.isEmpty() && idcitas != null) { // Corregido: 'and' -> '&&'
+	        @RequestParam(name = "idcitas", required = false) Integer idcitas,Model model) {
+		
+		if (idCompuesto.isEmpty() || idcitas == null) {
+		    // Al menos uno de los campos está vacío, muestra la alerta
+		    model.addAttribute("muestraAlerta", true);
+		    System.out.println("muestraAlerta: true");
+		} else {
+		    // Ambos campos tienen valores, realiza las operaciones subsiguientes
+		    Expediente expediente = expedienteservice.searchByStringId(idCompuesto);
+		    Citas citaEncontrada = citaservice.searchById(idcitas);
 
-	        Expediente expediente = expedienteservice.searchByStringId(idCompuesto);
-	        Citas citaEncontrada = citaservice.searchById(idcitas);
-
-	        if (expediente != null && citaEncontrada != null) {
-	            // Ambos valores encontrados, puedes agregarlos al modelo
-	            model.addAttribute("expediente", expediente);
-	            model.addAttribute("cita", citaEncontrada);
-	        } else {
-	            // Al menos uno de los valores no fue encontrado
-	            model.addAttribute("mostrarAlerta", true);
-	        }
-
-	    } else {
-	        model.addAttribute("mostrarAlerta", true);
-	    }
+		    if (expediente != null && citaEncontrada != null) {
+		        // Ambos valores encontrados, puedes agregarlos al modelo
+		        model.addAttribute("expediente", expediente);
+		        model.addAttribute("cita", citaEncontrada);
+		    } else {
+		        // Al menos uno de los valores no se encontró, muestra la alerta
+		        model.addAttribute("muestraAlerta", true);
+		        System.out.println("muestraAlerta: true");
+		    }
+		}
 
 	    return "views/iniciar-consulta";
 	}
 	
 	
-	@PreAuthorize("hasRole('VETERINARIO')")
+	@Secured("VETERINARIO")
 	@GetMapping("/crearconsulta/{idCompuesto}/{idcitas}")
     public String crearConsulta(@PathVariable("idCompuesto") String idcompuesto,@PathVariable("idcitas") Integer idcitas, 
     		Model model) {
@@ -110,7 +113,7 @@ public class DiagnosticoController {
 		
 		}
 	
-	@PreAuthorize("hasRole('VETERINARIO')")
+	@Secured("VETERINARIO")
 	@PostMapping("/guardarconsulta")
     public String guardarVacunasExamenesDiagnostico(@ModelAttribute("vacunas") Vacunas vacunas,
             @ModelAttribute("examenes") Examenes examenes,@ModelAttribute("diagnostico") Diagnostico diagnostico,
@@ -135,7 +138,7 @@ public class DiagnosticoController {
     }
 	
 	
-	@PreAuthorize("hasRole('VETERINARIO')")
+	@Secured("VETERINARIO")
 	@GetMapping("/revisarConsulta")
 	public String revisarConsultaTerminada(@RequestParam Integer id,@RequestParam int idExamen,@RequestParam int idVacuna, Model model) {
 		

@@ -3,6 +3,7 @@ package sv.edu.ufg.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +25,18 @@ public class MostrarExpedienteController {
 
     // ... Otros métodos del controlador ...
     
-    @PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
     @GetMapping("/buscaexpediente")
     public String mostrarVistaBusqueda() {
         return "views/buscarexpediente";
     }
 
-    @PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
     @PostMapping("/buscaexpediente")
-    public String buscarExpedientePorId(@RequestParam("idCompuesto") String idCompuesto,@RequestParam("nombrepropietario") String nombrePropietario,@RequestParam("nombrepaciente") String nombrePaciente, Model model) {
+    public String buscarExpedientePorId(@RequestParam("idCompuesto") String idCompuesto,
+    		@RequestParam("nombrepropietario") String nombrePropietario,
+    		@RequestParam("nombrepaciente") String nombrePaciente,
+    		Model model) {
     	 if (!idCompuesto.isEmpty()) {
     	        // Search by ID
     	        Expediente expediente = expedienteService.searchByStringId(idCompuesto);
@@ -64,7 +68,7 @@ public class MostrarExpedienteController {
         return "views/buscarexpediente";
     }
     
-    @PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
     @GetMapping("/expediente/{idCompuesto}")
    	public String mostrarDetalleExpediente(@PathVariable String idCompuesto, Model model) {
    	    // Recuperar el expediente específico por su ID

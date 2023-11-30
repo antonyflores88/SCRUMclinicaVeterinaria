@@ -1,6 +1,6 @@
 package sv.edu.ufg.controllers;
 
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/secretaria")
 public class SecretariaController {
 
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
 	@GetMapping("/logeosecretaria")
     public String mostrarlogeosecretaria() {
-        return "views/home-secretaria";
+        return "views/secretarialist";
     }
 	
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
     @GetMapping("/opciones")
     public String mostrarOpcionesSecretaria() {
         return "views/secretarialist";

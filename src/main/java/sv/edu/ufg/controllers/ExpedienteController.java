@@ -1,7 +1,7 @@
 package sv.edu.ufg.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +24,7 @@ public class ExpedienteController {
 	private iExpedienteService expedienteService;
 	
 	
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
 	@GetMapping("/create")
 	public String crearExpediente(Model model) {
 		
@@ -38,7 +38,7 @@ public class ExpedienteController {
 		return "views/frmcrearexpediente";
 	}
 	
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
 	@PostMapping("/save")
 	public String saveExpediente(@Valid @ModelAttribute ("expediente") Expediente expediente, 
 			BindingResult bindingResult, Model model, RedirectAttributes redirectAttr) {
@@ -62,7 +62,7 @@ public class ExpedienteController {
 	
 	}
 	
-	@PreAuthorize("hasRole('SECRETARIA')")
+	@Secured("SECRETARIA")
 	@GetMapping("/edit/{idCompuesto}")
 	public String showEditForm(@PathVariable("idCompuesto") String idcompuesto, Model model) {
 	    // Obtener el expediente que deseas editar
