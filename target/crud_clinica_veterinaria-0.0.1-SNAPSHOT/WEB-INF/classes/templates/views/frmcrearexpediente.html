@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th=http://www.thymeleaf.org>
+
+<head th:replace="/cascaron/template :: head">
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Crear Expediente</title>
+</head>
+
+<header th:replace="/cascaron/template :: header"></header>
+
+<body>
+
+	<link rel="stylesheet" href="/css/expediente-form.css">
+	<div id="pagina">
+
+
+		<div class="expediente-center-container"
+			style="min-height: 100vh; display: flex; justify-content: center; align-items: center;">
+			<div class="expediente-creation-card p-4">
+				<div class="form-expediente">
+					<h2 class="text-center mb-4" style="margin-top: 20px; margin-bottom: 50px;">CREAR EXPEDIENTE</h2>
+
+					<form id="miFormulario" th:object="${expediente}" th:action="@{/views/expedientes/save}"
+						method="post" onsubmit="removeFormatting()">
+						<div class="expediente-creation-form-group mb-3">
+							<div class="form-group-container">
+								<label for="nombrepaciente" class="form-label">NOMBRE MASCOTA</label>
+								<input th:field="*{nombrepaciente}" style="text-transform: uppercase;" maxlength="15"
+									autocomplete="off" type="text" class="form-control custom-input" id="nombrepaciente"
+									placeholder="Nombre de la mascota">
+							</div>
+							<small th:errors="*{nombrepaciente}" class="form-text text-danger"></small>
+						</div>
+
+						<div class="expediente-creation-form-group mb-3 col-md-8">
+							<div class="form-group-container">
+								<label for="sexo" class="form-label">SEXO MASCOTA</label>
+								<div>
+									<input type="radio" th:field="*{sexo}" id="sexoMasculino" name="sexo"
+										value="Macho" />
+									<label for="sexoMasculino">MACHO</label>
+								</div>
+								<div>
+									<input type="radio" th:field="*{sexo}" id="sexoFemenino" name="sexo"
+										value="Hembra" />
+									<label for="sexoFemenino">HEMBRA</label>
+								</div>
+							</div>
+							<small th:errors="*{sexo}" class="form-text text-danger"></small>
+						</div>
+						<div class="expediente-creation-form-group mb-3 col-md-8">
+							<div class="form-group-container">
+								<label for="especie" class="form-label">ESPECIE</label>
+								<div>
+									<input type="radio" th:field="*{especie}" id="especieCanino" name="especie"
+										value="Canino" />
+									<label for="especieCanino">CANINO</label>
+
+									<input type="radio" th:field="*{especie}" id="especieFelino" name="especie"
+										value="Felino" />
+									<label for="especieFelino">FELINO</label>
+								</div>
+							</div>
+							<small th:errors="*{especie}" class="form-text text-danger"></small>
+						</div>
+						<div class="expediente-creation-form-group mb-3 col-md-8">
+							<div class="form-group-container">
+								<label for="raza" class="form-label">RAZA</label>
+								<select id="raza" class="form-select" th:field="*{raza}">
+									<option value="" disabled selected>SELECCIONAR ESPECIE PARA VER LAS OPCIONES
+									</option>
+								</select>
+							</div>
+							<small th:errors="*{raza}" class="form-text text-danger"></small>
+							<div id="razasAleatorias" hidden>
+								<!-- Aquí se mostrarán las razas aleatorias -->
+							</div>
+						</div>
+
+						<div class="mb-3 col-md-8">
+							<div class="form-group-container">
+								<label for="color" class="form-label">COLOR</label>
+								<input th:field="*{color}" style="text-transform: uppercase;" autocomplete="off"
+									type="text" class="form-control custom-input" id="color" maxlength="10"
+									placeholder="Color de la mascota">
+							</div>
+							<small th:errors="*{color}" class="form-text text-danger"></small>
+						</div>
+						<div class="mb-3 col-md-8">
+							<div class="form-group-container">
+								<label for="nombrepropietario" class="form-label">DUEÑO DE MASCOTA</label>
+								<input th:field="*{nombrepropietario}" style="text-transform: uppercase;"
+									autocomplete="off" type="text" class="form-control custom-input" maxlength="20"
+									id="nombrepropietario" placeholder="Nombre del DUEÑO">
+							</div>
+							<small th:errors="*{nombrepropietario}" class="form-text text-danger"></small>
+						</div>
+						<div class="mb-3 col-md-8">
+							<div class="form-group-container">
+								<label for="direccion" class="form-label">DIRECCION</label>
+								<input th:field="*{direccion}" style="text-transform: uppercase;" autocomplete="off"
+									type="text" class="form-control custom-input" id="direccion" maxlength="70"
+									placeholder="Direccion">
+							</div>
+							<small th:errors="*{direccion}" class="form-text text-danger"></small>
+						</div>
+
+						<div class="expediente-creation-form-group mb-3 col-md-8">
+							<div class="form-group-container">
+								<label for="telefono" class="form-label">TELEFONO</label>
+								<input th:field="*{telefono}" style="text-transform: uppercase;" autocomplete="off"
+									name="phone" type="text" class="form-control custom-input" id="telefono"
+									placeholder="NUMERO TELEFONICO">
+							</div>
+							<small th:errors="*{telefono}" class="form-text text-danger"></small>
+						</div>
+
+						<div class="mb-3 col-md-8">
+							<div class="form-group-container">
+								<label for="medicoreferido" class="form-label">MEDICO REFERIDO</label>
+								<input th:field="*{medicoreferido}" style="text-transform: uppercase;" maxlength="15"
+									autocomplete="off" type="text" class="form-control custom-input" id="medicoreferido"
+									placeholder="Medico REFERIDO, SI EXISTE.">
+							</div>
+						</div>
+						<!-- Campo de entrada para el uniqueId -->
+						<div class="mb-3 col-md-8">
+							<div class="form-group-container">
+								<label for="idCompuesto" class="form-label">ID UNICO DE EXPEDIENTE</label>
+								<input th:field="*{idCompuesto}" type="text" class="form-control custom-input"
+									id="idCompuesto" placeholder="ID UNICO" readonly="readonly" />
+							</div>
+							<small th:errors="*{idCompuesto}" class="form-text text-danger"></small>
+						</div>
+
+						<!-- Botón para generar el UniqueId -->
+						<div class="mb-3 col-md-8">
+							<button type="button" id="generarUniqueIdBtn" class="btn btn-primary">GENERAR ID</button>
+						</div>
+
+						<div class="card-footer text-body-secondary last-element-in-form" style="margin-bottom: 30px;">
+							<input type="submit" th:class="${isSave} ? 'btn' : 'btn btn-primary'"
+								th:value="${btnValue}"></input>
+							<a th:href="@{/secretaria/opciones}" class="btn btn-secondary">CANCELAR</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="/cascaron/template :: footer"></footer>
+
+
+	<script>
+		// Define the list of dog and cat breeds
+		const dogBreeds = ["SIBERIAN", "BOXER", "CHIHUAHUA", "PITBULL", "BULL TERRIER", "MEZTIZO", "DALMATA", "BEAGLE", "LABRADOR"];
+		const catBreeds = ["SIAMESE", "ANGORA", "RAGDOLL", "PERSA", "BENGALI", "SIBERIANO", "ESFINGE", "SOMALI"];
+
+		// Get references to the HTML elements
+		const dogSpecies = document.getElementById("especieCanino");
+		const catSpecies = document.getElementById("especieFelino");
+		const breedSelect = document.getElementById("raza");
+		const otherFieldDiv = document.getElementById("otherFieldDiv");
+
+		// Function to update the breed dropdown menu options
+		function updateBreedOptions(selectedSpecies) {
+			const randomBreeds = selectedSpecies === "Canino" ? dogBreeds : catBreeds;
+			breedSelect.innerHTML = ""; // Clear the current options
+
+			// Add the breed options to the dropdown menu
+			randomBreeds.forEach((breed) => {
+				const option = document.createElement("option");
+				option.value = breed;
+				option.textContent = breed;
+				breedSelect.appendChild(option);
+			});
+
+		}
+
+		// Handle the species change events
+		dogSpecies.addEventListener("change", () => {
+			if (dogSpecies.checked) {
+				updateBreedOptions("Canino");
+			}
+		});
+
+		catSpecies.addEventListener("change", () => {
+			if (catSpecies.checked) {
+				updateBreedOptions("Felino");
+			}
+		});
+	</script>
+
+	<!-- JavaScript para generar el UniqueId -->
+	<script>
+		document.getElementById('generarUniqueIdBtn').addEventListener('click', function () {
+			// Llama a la función para generar el código
+			var uniqueId = generateCodeAsString(); // Utiliza la función previamente definida
+
+			// Muestra el uniqueId en el campo de entrada y bloquea su modificación
+			var idCompuestoInput = document.getElementById('idCompuesto');
+			idCompuestoInput.value = uniqueId;
+			idCompuestoInput.setAttribute('readonly', 'readonly');
+		});
+
+		// Función para generar el código
+		function generateCodeAsString() {
+			// Genera un número aleatorio entre 0 y 9999
+			var randomNumber = Math.floor(Math.random() * 10000);
+
+			// Obtiene el año actual
+			var currentYear = new Date().getFullYear();
+
+			// Combina el año y el número de 4 dígitos como una cadena
+			var generatedCode = (randomNumber + (currentYear * 10000)).toString();
+
+			// Verifica si la cadena tiene menos de 8 dígitos y agrega ceros a la izquierda si es necesario
+			while (generatedCode.length < 8) {
+				generatedCode = "0" + generatedCode;
+			}
+
+			return generatedCode; // Retorna el código generado
+		}
+	</script>
+
+
+	<script>
+		function removeFormatting() {
+			// Remove non-digit characters before submitting the form
+			var telefonoInput = document.getElementById('telefono');
+			telefonoInput.value = telefonoInput.value.replace(/\D/g, '');
+		}
+
+		$(document).ready(function () {
+			// Apply the input mask to the telefono field
+			$('#telefono').mask('0000-0000');
+		});
+	</script>
+
+
+
+
+</body>
+
+</html>

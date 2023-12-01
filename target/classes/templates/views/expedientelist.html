@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th=http://www.thymeleaf.org>
+
+<head th:replace="/cascaron/template :: head">
+	<meta charset="UTF-8">
+	<title>Expedientes</title>
+</head>
+
+<body>
+	
+	<style>
+		
+		
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+
+}
+
+.container-detalle {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
+    width: 60%;
+    height: 80%;
+    margin-bottom: 200px; /* Ajusta según tus necesidades */
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+    width: 100%; /* Ajusta según tus necesidades */
+    height: 500px;
+}
+
+p.card-text {
+    padding: 0px;
+}
+
+
+.card-body {
+	
+	overflow-y: auto; /* Agrega un scroll vertical si el contenido es demasiado grande */
+	    overflow-x: hidden;
+    width: 98%; /* Ajusta según tus necesidades */
+    height: 98%;
+}
+
+.card-text {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.btn-primary {
+    display: block;
+    margin: 15px auto;
+    width: 50%;
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 15px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    display: block;
+    margin: 15px auto;
+    width: 50%;
+    text-align: center;
+    background-color: #f2372e;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 15px;
+}
+
+		
+	</style>
+	
+	
+	
+	<header th:replace="/cascaron/template :: header"></header>
+	<div class="container-detalle">
+		<h1 class="display-6 text-center mb-5">Detalle de Expediente</h1>
+		<div class="card" >
+			<div class="card-body">
+				<p class="card-text"><strong>Nombre de la Mascota:</strong> <span
+						th:text="${expediente.nombrepaciente}"></span></p>
+				<p class="card-text"><strong>Especie:</strong> <span th:text="${expediente.especie}"></span></p>
+				<p class="card-text"><strong>Sexo:</strong> <span th:text="${expediente.sexo}"></span></p>
+				<p class="card-text"><strong>Raza:</strong> <span th:text="${expediente.raza}"></span></p>
+				<p class="card-text"><strong>Color:</strong> <span th:text="${expediente.color}"></span></p>
+				<p class="card-text"><strong>Nombre del Dueño:</strong> <span
+						th:text="${expediente.nombrepropietario}"></span></p>
+				<p class="card-text"><strong>Dirección:</strong> <span th:text="${expediente.direccion}"></span></p>
+				<p class="card-text"><strong>Teléfono:</strong> <span th:text="${expediente.telefono}"></span></p>
+				<p class="card-text"><strong>Medico Referido:</strong> <span
+						th:text="${expediente.medicoreferido}"></span></p>
+				<p class="card-text"><strong>Id Único del Expediente:</strong> <span
+						th:text="${expediente.idCompuesto}"></span></p>
+						<a th:href="@{'/views/expedientes/edit/' + ${expediente.idCompuesto}}" class="btn btn-primary">Editar Expediente</a>
+						<a th:href="@{/secretaria/opciones}" class="btn btn-secondary">Cancelar Edición</a>
+			</div>
+		</div>
+	</div>
+
+
+	<footer th:replace="/cascaron/template :: footer"></footer>
+</body>
+
+</html>
