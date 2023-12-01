@@ -53,24 +53,27 @@ public class DiagnosticoController {
 	
 	@PostMapping("/iniciarconsulta")
 	public String buscarExpedientePorId(@RequestParam("idCompuesto") String idCompuesto,
-	        @RequestParam("idcitas") Integer idcitas,Model model) {
-	    if (!idCompuesto.isEmpty() && idcitas != null) { // Corregido: 'and' -> '&&'
+	        @RequestParam(name = "idcitas", required = false) Integer idcitas,Model model) {
+		
+		if (idCompuesto.isEmpty() || idcitas == null) {
+		    // Al menos uno de los campos está vacío, muestra la alerta
+		    model.addAttribute("muestraAlerta", true);
+		    System.out.println("muestraAlerta: true");
+		} else {
+		    // Ambos campos tienen valores, realiza las operaciones subsiguientes
+		    Expediente expediente = expedienteservice.searchByStringId(idCompuesto);
+		    Citas citaEncontrada = citaservice.searchById(idcitas);
 
-	        Expediente expediente = expedienteservice.searchByStringId(idCompuesto);
-	        Citas citaEncontrada = citaservice.searchById(idcitas);
-
-	        if (expediente != null && citaEncontrada != null) {
-	            // Ambos valores encontrados, puedes agregarlos al modelo
-	            model.addAttribute("expediente", expediente);
-	            model.addAttribute("cita", citaEncontrada);
-	        } else {
-	            // Al menos uno de los valores no fue encontrado
-	            model.addAttribute("mostrarAlerta", true);
-	        }
-
-	    } else {
-	        model.addAttribute("mostrarAlerta", true);
-	    }
+		    if (expediente != null && citaEncontrada != null) {
+		        // Ambos valores encontrados, puedes agregarlos al modelo
+		        model.addAttribute("expediente", expediente);
+		        model.addAttribute("cita", citaEncontrada);
+		    } else {
+		        // Al menos uno de los valores no se encontró, muestra la alerta
+		        model.addAttribute("muestraAlerta", true);
+		        System.out.println("muestraAlerta: true");
+		    }
+		}
 
 	    return "views/iniciar-consulta";
 	}
@@ -119,10 +122,29 @@ public class DiagnosticoController {
 
         model.addAttribute("mostrarAlerta2", true);
         model.addAttribute("mensaje", "Guardado exitosamente");
-
-        return "redirect:/diagnostico/iniciarconsulta";
+        
+        int idDiagnostico = diagnostico.getIdDiagnostico();
+        int idVacuna = vacunas.getIdVacuna();
+        int idExamen = examenes.getIdExamen() ;
+        
+        
+        return "redirect:/diagnostico/revisarConsulta?id=" + idDiagnostico + "&idVacuna=" + idVacuna + "&idExamen=" + idExamen;
     }
 	
+	
+	@GetMapping("/revisarConsulta")
+	public String revisarConsultaTerminada(@RequestParam Integer id,@RequestParam int idExamen,@RequestParam int idVacuna, Model model) {
+		
+		Diagnostico diagnostico = diagnosticoservice.searchById(id);
+		Examenes examen = examenservicio.searchById(idExamen);
+		Vacunas vacuna = vacunaservicio.searchById(idVacuna);
+		
+		model.addAttribute("diagnostico", diagnostico);
+		model.addAttribute("examen", examen);
+		model.addAttribute("vacuna", vacuna);
+		
+		return "views/revision-de-consulta";
+	}
 	
 
 }

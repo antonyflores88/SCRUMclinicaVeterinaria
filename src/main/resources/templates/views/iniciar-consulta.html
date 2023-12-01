@@ -211,19 +211,22 @@
 			<h1 class="display-4 text-center mb-5">Bienvenido Doctor</h1>
 			<h3>Recuerde que para iniciar la consulta debe ingresar el campo del ID de expediente y ID de cita, Gracias.
 			</h3>
+			<div th:if="${muestraAlerta}" class="alert alert-danger" role="alert">
+				Ambos registros deben existir para iniciar la consulta.
+			</div>
+
 			<form th:action="@{/diagnostico/iniciarconsulta}" method="post" class="text-center formulario-busqueda">
 				<label for="idCompuesto">ID del Expediente:</label>
 				<input type="text" style="text-transform: uppercase;" autocomplete="off" maxlength="10" id="idCompuesto"
 					name="idCompuesto">
 
 				<label for="idcitas">Id de la cita:</label>
-				<input type="text" style="text-transform: uppercase;" autocomplete="off" maxlength="20" id="idcitas"
-					name="idcitas">
+				<input type="number" autocomplete="off" id="idcitas" name="idcitas" oninput="validarNumeros(this)">
 
 				<button type="submit" class="btn btn-primary">Buscar</button>
 				<a th:href="@{/diagnostico/veterinario}" class="btn btn-secondary">Cancelar</a>
-			</form>
 
+			</form>
 			<!-- Reemplaza la sección donde se muestra cada expediente en la tarjeta con una tabla -->
 
 
@@ -246,7 +249,9 @@
 									<td th:text="${expediente.nombrepaciente}"></td>
 									<td th:text="${expediente.nombrepropietario}"></td>
 									<td th:text="${expediente.idCompuesto}"></td>
-									<td th:text="${cita.idcitas != null ? 'Listo para continuar' : 'El Cliente debe ir a crear una cita'}"></td>
+									<td
+										th:text="${cita.idcitas != null ? 'Listo para continuar' : 'El Cliente debe ir a crear una cita'}">
+									</td>
 									<td>
 										<a th:href="@{'/diagnostico/crearconsulta/' + ${expediente.idCompuesto} + '/' + ${cita.idcitas}}"
 											class="btn btn-primary-editar">Iniciar consulta</a>
@@ -257,11 +262,14 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div th:if="${mostrarAlerta}" class="alert alert-danger">
-			Ambos registros deben existir para iniciar la consulta.
+
 		</div>
 	</div>
+	<script>
+		function validarNumeros(input) {
+			input.value = input.value.replace(/\D/g, '').slice(0, 5);
+		}
+	</script>
 
 </body>
 

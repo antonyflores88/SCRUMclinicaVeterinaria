@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th=http://www.thymeleaf.org>
+
+<head th:replace="/cascaron/template :: head">
+	<meta charset="UTF-8">
+	<title>Expedientes</title>
+</head>
+
+<body>
+
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			margin: 0;
+
+		}
+
+		.card {
+			background-color: white;
+			border-radius: 10px;
+			overflow: hidden;
+
+			width: 100%;
+			/* Ajusta según tus necesidades */
+			height: 500px;
+		}
+
+		p.card-text {
+			padding: 0px;
+		}
+
+
+		.card-body {
+
+			overflow-y: auto;
+			/* Agrega un scroll vertical si el contenido es demasiado grande */
+			overflow-x: hidden;
+			width: 98%;
+			/* Ajusta según tus necesidades */
+			height: 98%;
+		}
+
+		.card-text {
+			margin-bottom: 10px;
+			color: #333;
+		}
+
+		.btn-primary {
+			display: block;
+			margin: 15px auto;
+			width: 50%;
+			text-align: center;
+			background-color: #007bff;
+			color: #fff;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			text-decoration: none;
+			margin-top: 15px;
+		}
+
+		.btn-primary:hover {
+			background-color: #0056b3;
+		}
+
+		.btn-secondary {
+			display: block;
+			margin: 15px auto;
+			width: 50%;
+			text-align: center;
+			background-color: #f2372e;
+			color: #fff;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			text-decoration: none;
+			margin-top: 15px;
+		}
+
+		form input {
+			display: flex;
+			margin-bottom: 10px;
+			width: 300px;
+			font-family: 'Poppins', sans-serif;
+			/* Agrega la fuente Poppins Sans Serif */
+		}
+
+		form label {
+			width: 100%;
+		}
+
+		form input {
+			width: 300px;
+			box-sizing: border-box;
+			border-radius: 20px;
+			background-color: white;
+			color: black;
+			/* Cambia el color del texto para mejorar la visibilidad */
+		}
+	</style>
+
+
+
+	<header th:replace="/cascaron/template :: header"></header>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-body">
+						<div class="form-container">
+							<form th:object="${diagnostico}">
+
+								<div class="mb-3 col-4">
+									<label for="compuesto">Numero de Expediente:</label>
+									<input th:value="*{compuesto}" readonly />
+								</div>
+								
+								<div class="mb-3 col-4">
+									<label for="idDiagnostico">Numero de Diagnostico:</label>
+									<input th:value="*{idDiagnostico}" readonly />
+								</div>
+
+								<div class="mb-3 col-4">
+									<label for="cita">Numero de Cita:</label>
+									<input th:value="*{cita}" readonly />
+								</div>
+
+								<div class="mb-3 col-4">
+									<label for="sintomas">Sintomas:</label>
+									<textarea th:field="*{sintomas}" type="text" name="sintomas" id="sintomas"
+									autocomplete="off" readonly
+										style="width: 300px; height: 200px; vertical-align: top; text-transform: uppercase;">
+										</textarea>
+								</div>
+
+								<div class="mb-3 col-4">
+									<label for="encargado">Nombre del encargado presente:</label>
+									<input th:value="*{encargado}" type="text" style="text-transform: uppercase;"
+										autocomplete="off" id="encargado" name="encargado" readonly/>
+								</div>
+
+								<div class="mb-3 col-4">
+									<label for="fechaConsulta">Fecha de consulta:</label>
+									<input type="date" th:value="*{fechaConsulta}" style="text-transform: uppercase;"
+										autocomplete="off" readonly/>
+								</div>
+
+
+								<div class="mb-3 col-4">
+									<label for="nombreVacuna">Vacuna:</label>
+									<input type="text" th:value="${vacuna.nombreVacuna}" style="text-transform: uppercase;"
+										placeholder="No se receto vacuna"  autocomplete="off" readonly/>
+								</div>
+
+								<div class="mb-3 col-4">
+									<label for="fechaAplicacion">Fecha de la vacuna:</label>
+									<input th:value="${vacuna.fechaAplicacion}" type="date" id="fechaAplicacion"
+										readonly>
+								</div>
+
+								<div class="mb-3 col-4">
+									<label for="tipoExamen">Examen:</label>
+									<input type="text" th:value="${examen.tipoExamen}" style="text-transform: uppercase;"
+										placeholder="No se receto vacuna"  autocomplete="off" readonly/>
+								</div>
+
+								<div class="text-body-secondary last-element-in-form mt-4" style="margin-bottom: 30px;">
+<!--								<button type="submit" class="btn btn-primary">Terminar</button>-->
+									<a th:href="@{/diagnostico/iniciarconsulta}" class="btn btn-secondary">Terminar</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:if="${mostrarAlerta2}" class="alert alert-danger">
+				Guardado exitoso.
+			</div>
+		</div>
+	</div>
+
+
+	<footer th:replace="/cascaron/template :: footer"></footer>
+</body>
+
+</html>
