@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th=http://www.thymeleaf.org>
+
+<head th:replace="~{/cascaron/template :: head}">
+	<meta charset="UTF-8">
+	<title>Inicio</title>
+</head>
+
+<body>
+	<header th:replace="~{/cascaron/template :: header}"></header>
+
+	<div class="container text-center mt-5">
+		<h1 class="secretaria-options-title mb-4">Opciones de Veterinario</h1>
+		<div class="secretaria-options-container">
+			<div class="secretaria-options-buttons">
+				<div class="card">
+					<div class="card-title">
+						Iniciar consulta
+					</div>
+					<div class="card-text">
+						Acceder al expediente y revisar cita valida para iniciar consulta
+					</div>
+					<a th:href="@{/diagnostico/iniciarconsulta}"
+						class="secretaria-options-btn btn btn-light btn-lg card-button">Comenzar</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<footer th:replace="~{/cascaron/template :: footer}"></footer>
+
+</body>
+
+</html>

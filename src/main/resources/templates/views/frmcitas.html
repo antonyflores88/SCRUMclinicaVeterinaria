@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th=http://www.thymeleaf.org>
+
+<head th:replace="~{/cascaron/template :: head}">
+	<meta charset="UTF-8">
+	<title>Citas</title>
+</head>
+
+<body class="uni">
+
+<style>
+
+/*    Solo agregar esto  */
+
+.actions{
+    background-color: transparent;
+   	margin-top: 40px;
+   	
+
+}
+.uni{
+    color: white;
+    background-image: url("/images/photo4.jpg");
+}
+.form-container{
+
+margin-top: 100px;
+margin-bottom: 200px;
+}
+
+.btn-primary {
+    border-radius: 25px;
+    background-color: #007bff; /* Color azul, puedes ajustar según tus preferencias */
+    color: white;
+}
+
+.btn-secondary {
+   background-color: red;
+			/* Fondo azul */
+			color: white;
+			/* Texto blanco */
+			border: none;
+			padding: 12px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 10px;
+			cursor: pointer;
+			border-radius: 20px; /* Agrega un margen entre los botones */
+}
+
+.form-exp{
+
+	margin: auto;
+	margin-left: 375px;
+
+}
+.form-group{
+
+	display: block;
+
+}
+
+label{
+
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.btn-success{
+
+	background-color: #007bff;
+			/* Fondo azul */
+			color: white;
+			/* Texto blanco */
+			border: none;
+			padding: 12px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 10px;
+			cursor: pointer;
+			border-radius: 20px;
+
+
+}
+
+
+
+</style>
+    
+    <body class="uni">
+
+        <div class="container mt-5">
+        	    <h1>Crear Cita</h1>
+            <div class="form-exp">
+                <div class="col-md-6">
+                    <div class="form-container">
+                        <form th:action="@{/views/citas/save}" method="post" th:object="${cita}">
+					
+						<div class="form-group">
+							<label for="veterinario_asignado">Veterinario Asignado:</label>
+							<!-- Campo oculto para almacenar el ID del veterinario -->
+							<input type="hidden" id="veterinario_asignado" name="veterinario_asignado"
+								th:value="${nombreVeterinario.idveterinario}" />
+							<!-- Campo de texto para mostrar el nombre del veterinario -->
+							<input type="text" class="form-control" readonly="readonly"
+								th:value="${nombreVeterinario.nombrevet}" />
+						</div>
+
+						<div class="form-group">
+							<label for="fecha_cita">Fecha de la Cita:</label>
+							<input type="text" id="fecha_cita" name="fecha_cita" class="form-control"
+								th:value="${fecha}" readonly="readonly" />
+						</div>
+
+
+						<div class="form-group">
+							<label for="hora_cita">Hora de la Cita:</label>
+							<input type="time" id="hora_cita" name="hora_cita" class="form-control" th:value="${hora}"
+								readonly="readonly" />
+						</div>
+
+						<div class="form-group">
+							<label for="dueno_mascota">Nombre del Dueño:</label>
+							<input type="text" style="text-transform: uppercase;" autocomplete="off" id="dueno_mascota" name="dueno_mascota" class="form-control"
+								maxlength="20" required="required" />
+						</div>
+						<div class="card-footer text-body-secondary last-element-in-form" style="margin-bottom: 30px;">
+							<div class="actions">
+								<input type="submit" th:class="${isSave} ? 'btn btn-success' : 'btn btn-primary'"
+									th:value="${btnValue}"></input>
+								<button th:href="@{/secretaria/opciones}" class="btn btn-secondary">Cancelar</button>
+							</div>
+
+						</div>
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	</div>
+
+
+</body>
+
+</html>

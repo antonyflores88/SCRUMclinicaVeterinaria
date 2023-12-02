@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th=http://www.thymeleaf.org>
+
+<head th:replace="~{/cascaron/template :: head}">
+	<meta charset="UTF-8">
+	<title>Citas</title>
+</head>
+
+<body>
+	<header th:replace="~{/cascaron/template :: header}"></header>
+	
+	
+	<style>
+	
+		.container{
+		
+			align-items: center;
+		
+		}
+		
+		h1{
+		
+			text-align: center;
+			color: white;
+			margin-top: 100px;
+			margin-bottom: 100px;
+		}
+	
+	
+		form{
+		
+			width: 900px;
+			margin-left: 500px;
+		
+		}
+		
+		.btn-danger{
+		
+		background-color: red;
+			/* Fondo azul */
+			color: white;
+			/* Texto blanco */
+			border: none;
+			padding: 12px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 10px;
+			cursor: pointer;
+			border-radius: 20px;
+		
+		
+		}
+	
+	
+		.btn-secondary {
+   background-color: #007bff;
+			/* Fondo azul */
+			color: white;
+			/* Texto blanco */
+			border: none;
+			padding: 12px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 10px;
+			cursor: pointer;
+			border-radius: 20px; /* Agrega un margen entre los botones */
+}
+	
+	</style>
+
+	<div class="main-pls">
+		<div class="container-exp">
+					<h1 th:text="Cancelacion"></h1>
+				</div>
+				<div class="card-body">
+					<form th:action="@{/views/citas/cancelarCita}" method="post">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Nombre del Dueño</th>
+									<th>Fecha</th>
+									<th>Hora</th>
+									<th>Veterinario</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="cita : ${citareservada}">
+									<td>
+										<span th:text="${cita.dueno_mascota}"></span>
+									</td>
+									<td>
+										<span th:text="${cita.fecha_cita}"></span>
+									</td>
+									<td>
+										<span th:text="${cita.hora_cita}"></span>
+									</td>
+									<input type="hidden" name="idcitas" th:value="${cita.idcitas}" />
+									<td>
+										<div class="form-group">
+											<label for="veterinario_asignado"></label>
+											<span th:text="${nombreVeterinario.nombrevet}"></span>
+										</div>
+									</td>
+							</tbody>
+						</table>
+
+						<div class="card-footer text-body-secondary last-element-in-form" style="margin-bottom: 30px; margin-left: 315px;">
+							<div>
+								<input type="submit" class="btn btn-danger" value="Cancelar Cita" />
+								<a th:href="@{/secretaria/opciones}" class="btn btn-secondary">Regresar</a>
+							</div>
+
+					</form>
+
+				</div>
+
+			</div>
+			
+		</div>
+	</div>
+
+
+</body>
+
+</html>

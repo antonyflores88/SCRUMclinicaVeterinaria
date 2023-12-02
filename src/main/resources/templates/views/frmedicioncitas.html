@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th=http://www.thymeleaf.org>
+
+<head th:replace="~{/cascaron/template :: head}">
+	<meta charset="UTF-8">
+	<title>Citas</title>
+</head>
+
+<body>
+	<header th:replace="~{/cascaron/template :: header}"></header>
+	
+<style>
+
+	body{
+	
+	color: white;	
+	
+	}
+	.caja-formulario{
+	
+	margin-top: 100px;
+	background-color: white;
+	padding:75px;
+	margin-bottom: 100px;
+	color: black;
+	
+	}
+	
+	label{
+	
+	display: flex;
+	padding-bottom: 15px;
+	padding-top: 15px;
+	
+	}
+	
+	.btn-secondary {
+
+			background-color: red;
+			/* Fondo azul */
+			color: white;
+			/* Texto blanco */
+			border: none;
+			padding: 12px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 10px;
+			cursor: pointer;
+			border-radius: 20px;
+		}
+		
+	.btn-primary {
+
+			background-color: #007bff;
+			/* Fondo azul */
+			color: white;
+			/* Texto blanco */
+			border: none;
+			padding: 12px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 10px;
+			cursor: pointer;
+			border-radius: 20px;
+		}
+
+
+
+</style>
+
+
+	<div class="container mt-5">
+		<div class="row">
+			<div class="title">
+					<h1 th:text="${title}"></h1>
+				</div>
+				<div class="card-body">
+				<div class="caja-formulario">
+					<form th:action="@{/views/citas/save}" method="post" th:object="${editarcita}">
+						<input th:field="*{idcitas}" type="hidden">
+						
+						<div class="form-group">
+							<label for="veterinario_asignado">Veterinario Asignado:</label>
+							<!-- Campo de texto para mostrar el nombre del veterinario -->
+							<input type="text" class="form-control"
+								th:value="${nombreVeterinario.nombrevet}" readonly="readonly"/>
+								
+							<input type="hidden" id="veterinario_asignado" 
+								name="veterinario_asignado" th:value="${nombreVeterinario.idveterinario}" />
+						</div>
+
+						<div class="form-group">
+							<label for="fecha_cita">Fecha de la Cita:</label>
+							<input type="date" id="fecha_cita" name="fecha_cita" class="form-control"
+								th:value="${editarcita.fecha_cita}"/>
+						</div>
+
+
+						<div class="form-group">
+							<label for="hora_cita">Hora de la Cita:</label>
+							<input type="time" id="hora_cita" name="hora_cita" class="form-control" 
+								th:value="${editarcita.hora_cita}"/>
+						</div>
+
+						<div class="form-group">
+							<label for="dueno_mascota">Nombre del Dueño:</label>
+							<input type="text" id="dueno_mascota" name="dueno_mascota" class="form-control" 
+								th:value="${editarcita.dueno_mascota}"/>
+						</div>
+						<div class="card-footer text-body-secondary last-element-in-form" style="margin-bottom: 30px; margin-top: 30px">
+							<div>
+								<input type="submit" th:class="${isSave} ? 'btn btn-success' : 'btn btn-primary'"
+									th:value="${btnValue}"></input>
+								<a th:href="@{/secretaria/opciones}" class="btn btn-secondary">Cancelar</a>
+							</div>
+
+						</div>
+					</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
+
+</html>
