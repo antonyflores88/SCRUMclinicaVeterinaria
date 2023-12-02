@@ -1,0 +1,6 @@
+sv.edu.ufg
+sv.edu.ufg.controllers
+sv.edu.ufg.models.entity
+sv.edu.ufg.models.repository
+sv.edu.ufg.models.service
+sv.edu.ufg.utils
