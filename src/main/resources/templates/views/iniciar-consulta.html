@@ -1,227 +1,233 @@
 <!DOCTYPE html>
 <html xmlns:th=http://www.thymeleaf.org>
 
-<head th:replace="~{/cascaron/template :: head}">
-	<link rel="stylesheet" type="text/css" href="/css/Listado.css">
-	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Buscar Expediente por ID</title>
+<head>
+
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/css/estilitos.css}" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/Listado.css">
+<title>Buscar Expediente por ID</title>
 </head>
 
 <body>
-	<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Poppins'
+		rel='stylesheet'>
 	<style>
-		body {
-			color: white;
-			font-family: 'Poppins', sans-serif;
-			background-image: url("/images/photo4.jpg");
-		}
+body {
+	color: white;
+	font-family: 'Poppins', sans-serif;
+	background-image: url("/images/photo4.jpg");
+}
 
-		.btn-secondary {
+.btn-secondary {
+	background-color: rgb(255, 60, 60);
+	/* Fondo azul */
+	color: #fff;
+	/* Texto blanco */
+	border: none;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 10px;
+	cursor: pointer;
+	border-radius: 20px;
+}
 
-			background-color: rgb(255, 60, 60);
-			/* Fondo azul */
-			color: #fff;
-			/* Texto blanco */
-			border: none;
-			padding: 10px 20px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			margin: 10px;
-			cursor: pointer;
-			border-radius: 20px;
-		}
+.btn-primary-editar {
+	background-color: white;
+	/* Fondo azul */
+	color: blue;
+	/* Texto blanco */
+	border: none;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 10px;
+	cursor: pointer;
+	border-radius: 20px;
+}
 
-		.btn-primary-editar {
+.caja-exp {
+	margin-top: 75px;
+}
 
-			background-color: white;
-			/* Fondo azul */
-			color: blue;
-			/* Texto blanco */
-			border: none;
-			padding: 10px 20px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			margin: 10px;
-			cursor: pointer;
-			border-radius: 20px;
-		}
+input {
+	border-radius: 10px;
+	border: white;
+}
 
+.container-sal {
+	max-width: 600px;
+	/* Ajusta según tus necesidades */
+	margin: auto;
+	padding: 20px;
+}
 
-		.caja-exp {
+.text-center {
+	text-align: center;
+}
 
-			margin-top: 75px;
-		}
+.formulario-busqueda {
+	margin-top: 20px;
+	/* Ajusta según tus necesidades */
+}
 
-		input {
+.formulario-busqueda label {
+	display: block;
+	margin-bottom: 5px;
+	/* Ajusta según tus necesidades */
+}
 
-			border-radius: 10px;
-			border: white;
+.formulario-busqueda input {
+	width: 100%;
+	/* O ajusta según tus necesidades */
+	margin-bottom: 10px;
+	/* Ajusta según tus necesidades */
+}
 
-		}
+.formulario-busqueda button, .formulario-busqueda a {
+	margin-top: 10px;
+	/* Ajusta según tus necesidades */
+}
 
-		.container-sal {
-			max-width: 600px;
-			/* Ajusta según tus necesidades */
-			margin: auto;
-			padding: 20px;
-		}
+.container {
+	width: 80%;
+	margin: auto;
+}
 
-		.text-center {
-			text-align: center;
-		}
+#tarjeta-exp {
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	margin-bottom: 100px;
+	color: black;
+}
 
-		.formulario-busqueda {
-			margin-top: 20px;
-			/* Ajusta según tus necesidades */
-		}
+#tarjeta-exp ul {
+	list-style: none;
+	display: flex;
+	justify-content: space-between;
+	color: black;
+}
 
-		.formulario-busqueda label {
-			display: block;
-			margin-bottom: 5px;
-			/* Ajusta según tus necesidades */
-		}
+#tarjeta-exp li {
+	margin: 0 10px;
+	color: black;
+	/* Ajusta según tus necesidades para el espacio entre elementos */
+}
 
-		.formulario-busqueda input {
-			width: 100%;
-			/* O ajusta según tus necesidades */
-			margin-bottom: 10px;
-			/* Ajusta según tus necesidades */
-		}
+h6 {
+	color: black;
+}
 
-		.formulario-busqueda button,
-		.formulario-busqueda a {
-			margin-top: 10px;
-			/* Ajusta según tus necesidades */
-		}
+p {
+	color: black;
+}
 
+/* Agrega estilos para la tabla de expedientes por nombre del propietario */
+#tabla-exp-prop table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
 
-		.container {
-			width: 80%;
-			margin: auto;
-		}
+#tabla-exp-prop th, #tabla-exp-prop td {
+	padding: 10px;
+	text-align: center;
+	vertical-align: text-bottom;
+}
 
+#tabla-exp-prop th {
+	background-color: white;
+	color: black;
+	font-weight: bold;
+}
 
-		#tarjeta-exp {
-			background-color: white;
-			padding: 20px;
-			border-radius: 10px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-			margin-bottom: 100px;
-			color: black;
-		}
+#tabla-exp-prop tbody tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
 
-		#tarjeta-exp ul {
-			list-style: none;
-			display: flex;
-			justify-content: space-between;
-			color: black;
-		}
+#tabla-exp-prop tbody tr:hover {
+	background-color: #ddd;
+}
 
-		#tarjeta-exp li {
-			margin: 0 10px;
-			color: black;
-			/* Ajusta según tus necesidades para el espacio entre elementos */
-		}
+/* Ajustes para centrar el contenedor principal */
+.container-propietario {
+	margin: auto;
+	max-width: 800px;
+	/* Ajusta el valor según tus necesidades */
+	margin-bottom: 300px;
+}
 
-		h6 {
-			color: black;
-		}
+/* Ajustes para el contenedor del expediente encontrado */
+#exp-container {
+	width: 100%;
+}
 
-		p {
-			color: black;
-		}
+/* Control de ancho para la tabla */
+#tabla-exp-prop table {
+	width: 100%;
+	max-width: 100%;
+	/* Ajusta el valor según tus necesidades */
+	border-collapse: collapse;
+	margin-top: 20px;
+}
 
-		/* Agrega estilos para la tabla de expedientes por nombre del propietario */
-		#tabla-exp-prop table {
-			width: 100%;
-			border-collapse: collapse;
-			margin-top: 20px;
-		}
+/* Restricción del ancho máximo de la tabla */
+#exp-container table {
+	width: 100%;
+	max-width: 100%;
+	/* Ajusta el valor según tus necesidades */
+}
 
-		#tabla-exp-prop th,
-		#tabla-exp-prop td {
-			padding: 10px;
-			text-align: center;
-			vertical-align: text-bottom;
-		}
-
-		#tabla-exp-prop th {
-			background-color: white;
-			color: black;
-			font-weight: bold;
-		}
-
-		#tabla-exp-prop tbody tr:nth-child(even) {
-			background-color: #f2f2f2;
-		}
-
-		#tabla-exp-prop tbody tr:hover {
-			background-color: #ddd;
-		}
-
-		/* Ajustes para centrar el contenedor principal */
-		.container-propietario {
-			margin: auto;
-			max-width: 800px;
-			/* Ajusta el valor según tus necesidades */
-			margin-bottom: 300px;
-		}
-
-		/* Ajustes para el contenedor del expediente encontrado */
-		#exp-container {
-			width: 100%;
-		}
-
-		/* Control de ancho para la tabla */
-		#tabla-exp-prop table {
-			width: 100%;
-			max-width: 100%;
-			/* Ajusta el valor según tus necesidades */
-			border-collapse: collapse;
-			margin-top: 20px;
-		}
-
-		/* Restricción del ancho máximo de la tabla */
-		#exp-container table {
-			width: 100%;
-			max-width: 100%;
-			/* Ajusta el valor según tus necesidades */
-		}
-
-		.container-propietario-uno {
-			max-width: 800px;
-			margin: auto;
-			margin-bottom: 300px;
-
-		}
-	</style>
+.container-propietario-uno {
+	max-width: 800px;
+	margin: auto;
+	margin-bottom: 300px;
+}
+</style>
 
 
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-blue with-shadow">
+			<div
+				class="container d-flex justify-content-between align-items-center">
+				<div>
+					<a class="navbar-brand" href="#" th:href="@{/home}"> <img
+						src="/images/CLINICPET-01.png" alt="Logo" height="100">
+					</a>
+				</div>
+			</div>
+		</nav>
+	</header>
 
-
-
-	<header th:replace="~{/cascaron/template :: header}"></header>
 
 	<div class="caja-exp">
 		<div class="container-sal">
 			<h1 class="display-4 text-center mb-5">Bienvenido Doctor</h1>
-			<h3>Recuerde que para iniciar la consulta debe ingresar el campo del ID de expediente y ID de cita, Gracias.
-			</h3>
+			<h3>Recuerde que para iniciar la consulta debe ingresar el campo
+				del ID de expediente y ID de cita, Gracias.</h3>
 			<div th:if="${muestraAlerta}" class="alert alert-danger" role="alert">
-				Ambos registros deben existir para iniciar la consulta.
-			</div>
+				Ambos registros deben existir para iniciar la consulta.</div>
 
-			<form th:action="@{/diagnostico/iniciarconsulta}" method="post" class="text-center formulario-busqueda">
-				<label for="idCompuesto">ID del Expediente:</label>
-				<input type="text" style="text-transform: uppercase;" autocomplete="off" maxlength="10" id="idCompuesto"
-					name="idCompuesto">
-
-				<label for="idcitas">Id de la cita:</label>
-				<input type="number" autocomplete="off" id="idcitas" name="idcitas" oninput="validarNumeros(this)">
+			<form th:action="@{/diagnostico/iniciarconsulta}" method="post"
+				class="text-center formulario-busqueda">
+				<label for="idCompuesto">ID del Expediente:</label> <input
+					type="text" style="text-transform: uppercase;" autocomplete="off"
+					maxlength="10" id="idCompuesto" name="idCompuesto"> <label
+					for="idcitas">Id de la cita:</label> <input type="number"
+					autocomplete="off" id="idcitas" name="idcitas"
+					oninput="validarNumeros(this)">
 
 				<button type="submit" class="btn btn-primary">Buscar</button>
 				<a th:href="@{/diagnostico/veterinario}" class="btn btn-secondary">Cancelar</a>
@@ -252,10 +258,9 @@
 									<td
 										th:text="${cita.idcitas != null ? 'Listo para continuar' : 'El Cliente debe ir a crear una cita'}">
 									</td>
-									<td>
-										<a th:href="@{'/diagnostico/crearconsulta/' + ${expediente.idCompuesto} + '/' + ${cita.idcitas}}"
-											class="btn btn-primary-editar">Iniciar consulta</a>
-									</td>
+									<td><a
+										th:href="@{'/diagnostico/crearconsulta/' + ${expediente.idCompuesto} + '/' + ${cita.idcitas}}"
+										class="btn btn-primary-editar">Iniciar consulta</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -271,8 +276,13 @@
 		}
 	</script>
 
+	<footer class="text-center fixed-bottom bg-dark text-white">
+		<div class="container">CLINICPET - Application Design with SCRUM
+			&copy; 2023</div>
+		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	</footer>
+
 </body>
 
-<footer th:replace="~{/cascaron/template :: footer}"></footer>
 
 </html>

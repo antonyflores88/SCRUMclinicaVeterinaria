@@ -1,41 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th=http://www.thymeleaf.org>
 
-<head th:replace="~{/cascaron/template :: head}">
+<head>
+
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/css/estilitos.css}" rel="stylesheet">
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 	<title>Citas</title>
+
 </head>
 
 <body class="uni">
 
-<style>
+	<style>
+		/*    Solo agregar esto  */
 
-/*    Solo agregar esto  */
+		.actions {
+			background-color: transparent;
+			margin-top: 40px;
 
-.actions{
-    background-color: transparent;
-   	margin-top: 40px;
-   	
 
-}
-.uni{
-    color: white;
-    background-image: url("/images/photo4.jpg");
-}
-.form-container{
+		}
 
-margin-top: 100px;
-margin-bottom: 200px;
-}
+		.uni {
+			color: white;
+			background-image: url("/images/photo4.jpg");
+		}
 
-.btn-primary {
-    border-radius: 25px;
-    background-color: #007bff; /* Color azul, puedes ajustar según tus preferencias */
-    color: white;
-}
+		.form-container {
 
-.btn-secondary {
-   background-color: red;
+			margin-top: 100px;
+			margin-bottom: 200px;
+		}
+
+		.btn-primary {
+			border-radius: 25px;
+			background-color: #007bff;
+			/* Color azul, puedes ajustar según tus preferencias */
+			color: white;
+		}
+
+		.btn-secondary {
+			background-color: red;
 			/* Fondo azul */
 			color: white;
 			/* Texto blanco */
@@ -47,30 +56,32 @@ margin-bottom: 200px;
 			font-size: 16px;
 			margin: 10px;
 			cursor: pointer;
-			border-radius: 20px; /* Agrega un margen entre los botones */
-}
+			border-radius: 20px;
+			/* Agrega un margen entre los botones */
+		}
 
-.form-exp{
+		.form-exp {
 
-	margin: auto;
-	margin-left: 375px;
+			margin: auto;
+			margin-left: 375px;
 
-}
-.form-group{
+		}
 
-	display: block;
+		.form-group {
 
-}
+			display: block;
 
-label{
+		}
 
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
+		label {
 
-.btn-success{
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
 
-	background-color: #007bff;
+		.btn-success {
+
+			background-color: #007bff;
 			/* Fondo azul */
 			color: white;
 			/* Texto blanco */
@@ -85,67 +96,82 @@ label{
 			border-radius: 20px;
 
 
-}
+		}
+	</style>
 
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-blue with-shadow">
+			<div class="container d-flex justify-content-between align-items-center">
+				<div>
+					<a class="navbar-brand" href="#" th:href="@{/home}">
+						<img src="/images/CLINICPET-01.png" alt="Logo" height="100">
+					</a>
+				</div>
+			</div>
+		</nav>
+	</header>
 
+	<body class="uni">
 
-</style>
-    
-    <body class="uni">
+		<div class="container mt-5">
+			<h1>Crear Cita</h1>
+			<div class="form-exp">
+				<div class="col-md-6">
+					<div class="form-container">
+						<form th:action="@{/views/citas/save}" method="post" th:object="${cita}">
 
-        <div class="container mt-5">
-        	    <h1>Crear Cita</h1>
-            <div class="form-exp">
-                <div class="col-md-6">
-                    <div class="form-container">
-                        <form th:action="@{/views/citas/save}" method="post" th:object="${cita}">
-					
-						<div class="form-group">
-							<label for="veterinario_asignado">Veterinario Asignado:</label>
-							<!-- Campo oculto para almacenar el ID del veterinario -->
-							<input type="hidden" id="veterinario_asignado" name="veterinario_asignado"
-								th:value="${nombreVeterinario.idveterinario}" />
-							<!-- Campo de texto para mostrar el nombre del veterinario -->
-							<input type="text" class="form-control" readonly="readonly"
-								th:value="${nombreVeterinario.nombrevet}" />
-						</div>
-
-						<div class="form-group">
-							<label for="fecha_cita">Fecha de la Cita:</label>
-							<input type="text" id="fecha_cita" name="fecha_cita" class="form-control"
-								th:value="${fecha}" readonly="readonly" />
-						</div>
-
-
-						<div class="form-group">
-							<label for="hora_cita">Hora de la Cita:</label>
-							<input type="time" id="hora_cita" name="hora_cita" class="form-control" th:value="${hora}"
-								readonly="readonly" />
-						</div>
-
-						<div class="form-group">
-							<label for="dueno_mascota">Nombre del Dueño:</label>
-							<input type="text" style="text-transform: uppercase;" autocomplete="off" id="dueno_mascota" name="dueno_mascota" class="form-control"
-								maxlength="20" required="required" />
-						</div>
-						<div class="card-footer text-body-secondary last-element-in-form" style="margin-bottom: 30px;">
-							<div class="actions">
-								<input type="submit" th:class="${isSave} ? 'btn btn-success' : 'btn btn-primary'"
-									th:value="${btnValue}"></input>
-								<button th:href="@{/secretaria/opciones}" class="btn btn-secondary">Cancelar</button>
+							<div class="form-group">
+								<label for="veterinario_asignado">Veterinario Asignado:</label>
+								<!-- Campo oculto para almacenar el ID del veterinario -->
+								<input type="hidden" id="veterinario_asignado" name="veterinario_asignado"
+									th:value="${nombreVeterinario.idveterinario}" />
+								<!-- Campo de texto para mostrar el nombre del veterinario -->
+								<input type="text" class="form-control" readonly="readonly"
+									th:value="${nombreVeterinario.nombrevet}" />
 							</div>
 
-						</div>
-					</form>
+							<div class="form-group">
+								<label for="fecha_cita">Fecha de la Cita:</label>
+								<input type="text" id="fecha_cita" name="fecha_cita" class="form-control"
+									th:value="${fecha}" readonly="readonly" />
+							</div>
+
+
+							<div class="form-group">
+								<label for="hora_cita">Hora de la Cita:</label>
+								<input type="time" id="hora_cita" name="hora_cita" class="form-control"
+									th:value="${hora}" readonly="readonly" />
+							</div>
+
+							<div class="form-group">
+								<label for="dueno_mascota">Nombre del Dueño:</label>
+								<input type="text" style="text-transform: uppercase;" autocomplete="off"
+									id="dueno_mascota" name="dueno_mascota" class="form-control" maxlength="20"
+									required="required" />
+							</div>
+							<div class="card-footer text-body-secondary last-element-in-form"
+								style="margin-bottom: 30px;">
+								<div class="actions">
+									<input type="submit" th:class="${isSave} ? 'btn btn-success' : 'btn btn-primary'"
+										th:value="${btnValue}"></input>
+									<button th:href="@{/secretaria/opciones}"
+										class="btn btn-secondary">Cancelar</button>
+								</div>
+
+							</div>
+						</form>
+
+					</div>
 
 				</div>
-
 			</div>
 		</div>
-	</div>
-	</div>
+		</div>
+		<footer class="text-center fixed-bottom bg-dark text-white">
+			<div class="container">CLINICPET - Application Design with SCRUM &copy; 2023</div>
+			<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+		</footer>
 
-
-</body>
+	</body>
 
 </html>

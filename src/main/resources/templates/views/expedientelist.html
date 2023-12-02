@@ -1,102 +1,120 @@
 <!DOCTYPE html>
 <html xmlns:th=http://www.thymeleaf.org>
 
-<head th:replace="~{/cascaron/template :: head}">
+<head>
+
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/css/estilitos.css}" rel="stylesheet">
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
 	<title>Expedientes</title>
 </head>
 
 <body>
-	
+
 	<style>
-		
-		
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			margin: 0;
 
-}
+		}
 
-.container-detalle {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 50px auto;
-    width: 60%;
-    height: 80%;
-    margin-bottom: 200px; /* Ajusta según tus necesidades */
-}
+		.container-detalle {
+			background-color: white;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin: 50px auto;
+			width: 60%;
+			height: 80%;
+			margin-bottom: 200px;
+			/* Ajusta según tus necesidades */
+		}
 
-.card {
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-top: 20px;
-    width: 100%; /* Ajusta según tus necesidades */
-    height: 500px;
-}
+		.card {
+			background-color: white;
+			border-radius: 10px;
+			overflow: hidden;
+			margin-top: 20px;
+			width: 100%;
+			/* Ajusta según tus necesidades */
+			height: 500px;
+		}
 
-p.card-text {
-    padding: 0px;
-}
+		p.card-text {
+			padding: 0px;
+		}
 
 
-.card-body {
-	
-	overflow-y: auto; /* Agrega un scroll vertical si el contenido es demasiado grande */
-	    overflow-x: hidden;
-    width: 98%; /* Ajusta según tus necesidades */
-    height: 98%;
-}
+		.card-body {
 
-.card-text {
-    margin-bottom: 10px;
-    color: #333;
-}
+			overflow-y: auto;
+			/* Agrega un scroll vertical si el contenido es demasiado grande */
+			overflow-x: hidden;
+			width: 98%;
+			/* Ajusta según tus necesidades */
+			height: 98%;
+		}
 
-.btn-primary {
-    display: block;
-    margin: 15px auto;
-    width: 50%;
-    text-align: center;
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-top: 15px;
-}
+		.card-text {
+			margin-bottom: 10px;
+			color: #333;
+		}
 
-.btn-primary:hover {
-    background-color: #0056b3;
-}
+		.btn-primary {
+			display: block;
+			margin: 15px auto;
+			width: 50%;
+			text-align: center;
+			background-color: #007bff;
+			color: #fff;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			text-decoration: none;
+			margin-top: 15px;
+		}
 
-.btn-secondary {
-    display: block;
-    margin: 15px auto;
-    width: 50%;
-    text-align: center;
-    background-color: #f2372e;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-top: 15px;
-}
+		.btn-primary:hover {
+			background-color: #0056b3;
+		}
 
-		
+		.btn-secondary {
+			display: block;
+			margin: 15px auto;
+			width: 50%;
+			text-align: center;
+			background-color: #f2372e;
+			color: #fff;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			text-decoration: none;
+			margin-top: 15px;
+		}
 	</style>
-	
-	
-	
-	<header th:replace="~{/cascaron/template :: header}"></header>
+
+
+
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-blue with-shadow">
+			<div class="container d-flex justify-content-between align-items-center">
+				<div>
+					<a class="navbar-brand" href="#" th:href="@{/home}">
+						<img src="/images/CLINICPET-01.png" alt="Logo" height="100">
+					</a>
+				</div>
+			</div>
+		</nav>
+	</header>
+
 	<div class="container-detalle">
 		<h1 class="display-6 text-center mb-5">Detalle de Expediente</h1>
-		<div class="card" >
+		<div class="card">
 			<div class="card-body">
 				<p class="card-text"><strong>Nombre de la Mascota:</strong> <span
 						th:text="${expediente.nombrepaciente}"></span></p>
@@ -112,14 +130,19 @@ p.card-text {
 						th:text="${expediente.medicoreferido}"></span></p>
 				<p class="card-text"><strong>Id Único del Expediente:</strong> <span
 						th:text="${expediente.idCompuesto}"></span></p>
-						<a th:href="@{'/views/expedientes/edit/' + ${expediente.idCompuesto}}" class="btn btn-primary">Editar Expediente</a>
-						<a th:href="@{/secretaria/opciones}" class="btn btn-secondary">Cancelar Edición</a>
+				<a th:href="@{'/views/expedientes/edit/' + ${expediente.idCompuesto}}" class="btn btn-primary">Editar
+					Expediente</a>
+				<a th:href="@{/secretaria/opciones}" class="btn btn-secondary">Cancelar Edición</a>
 			</div>
 		</div>
 	</div>
 
 
-<footer th:replace="~{/cascaron/template :: footer}"></footer>
+	<footer class="text-center fixed-bottom bg-dark text-white">
+		<div class="container">CLINICPET - Application Design with SCRUM &copy; 2023</div>
+		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	</footer>
+
 </body>
 
 </html>

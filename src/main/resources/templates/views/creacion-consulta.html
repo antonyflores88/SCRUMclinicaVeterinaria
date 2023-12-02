@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th=http://www.thymeleaf.org>
 
-<head th:replace="~{/cascaron/template :: head}">
+<head>
+
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/css/estilitos.css}" rel="stylesheet">
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
 	<title>Expedientes</title>
 </head>
 
@@ -102,7 +109,18 @@
 
 
 
-	<header th:replace="~{/cascaron/template :: header}"></header>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-blue with-shadow">
+			<div class="container d-flex justify-content-between align-items-center">
+				<div>
+					<a class="navbar-brand" href="#" th:href="@{/home}">
+						<img src="/images/CLINICPET-01.png" alt="Logo" height="100">
+					</a>
+				</div>
+			</div>
+		</nav>
+	</header>
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
@@ -143,7 +161,7 @@
 					<div class="card-body">
 						<div class="form-container">
 							<form th:object="${diagnostico}" th:action="@{/diagnostico/guardarconsulta}" method="post"
-							onsubmit="prepararEnvioFormulario()">
+								onsubmit="prepararEnvioFormulario()">
 
 								<div class="mb-3 col-4">
 									<label for="compuesto">Numero de Expediente:</label>
@@ -243,7 +261,7 @@
 								</div>
 
 								<div class="text-body-secondary last-element-in-form mt-4" style="margin-bottom: 30px;">
-								<button type="submit" class="btn btn-primary">Completar Consulta</button>
+									<button type="submit" class="btn btn-primary">Completar Consulta</button>
 									<a th:href="@{/diagnostico/veterinario}" class="btn btn-secondary">Cancelar</a>
 								</div>
 							</form>
@@ -289,26 +307,30 @@
 			}
 		}
 		function prepararEnvioFormulario() {
-	        // Obtener el estado de los checkboxes
-	        var checkboxVacunaMarcado = document.getElementById('checkbox1').checked;
-	        var checkboxExamenesMarcado = document.getElementById('checkbox2').checked;
+			// Obtener el estado de los checkboxes
+			var checkboxVacunaMarcado = document.getElementById('checkbox1').checked;
+			var checkboxExamenesMarcado = document.getElementById('checkbox2').checked;
 
-	        // Deshabilitar campos no seleccionados antes de enviar
-	        if (!checkboxVacunaMarcado) {
-	            document.getElementById('nombreVacuna').disabled = true;
-	            document.getElementById('especieAnimal').disabled = true;
-	            document.getElementById('fechaAplicacion').disabled = true;
-	        }
+			// Deshabilitar campos no seleccionados antes de enviar
+			if (!checkboxVacunaMarcado) {
+				document.getElementById('nombreVacuna').disabled = true;
+				document.getElementById('especieAnimal').disabled = true;
+				document.getElementById('fechaAplicacion').disabled = true;
+			}
 
-	        if (!checkboxExamenesMarcado) {
-	            document.getElementById('tipoExamen').disabled = true;
-	            document.getElementById('especieAnimal2').disabled = true;
-	            document.getElementById('nombreExamen').disabled = true;
-	        }
-	    }
+			if (!checkboxExamenesMarcado) {
+				document.getElementById('tipoExamen').disabled = true;
+				document.getElementById('especieAnimal2').disabled = true;
+				document.getElementById('nombreExamen').disabled = true;
+			}
+		}
 	</script>
 
-<footer th:replace="~{/cascaron/template :: footer}"></footer>
+	<footer class="text-center fixed-bottom bg-dark text-white">
+		<div class="container">CLINICPET - Application Design with SCRUM &copy; 2023</div>
+		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+	</footer>
+
 </body>
 
 </html>
