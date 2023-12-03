@@ -27,6 +27,7 @@
 			</div>
 		</nav>
 	</header>
+	
 	<style>
 body {
 	color: white;
@@ -94,8 +95,8 @@ label {
 						<div class="form-group">
 							<label for="veterinario_asignado">Veterinario Asignado:</label>
 							<!-- Campo de texto para mostrar el nombre del veterinario -->
-							<input type="text" class="form-control"
-								th:value="${nombreVeterinario.nombrevet}" readonly="readonly" />
+							<input type="text" class="form-control"	th:value="${nombreVeterinario.nombrevet}"
+							style="text-transform: uppercase;" autocomplete="off" maxlength="20" />
 
 							<input type="hidden" id="veterinario_asignado"
 								name="veterinario_asignado"
@@ -118,6 +119,7 @@ label {
 						<div class="form-group">
 							<label for="dueno_mascota">Nombre del Dueño:</label> <input
 								type="text" id="dueno_mascota" name="dueno_mascota"
+								style="text-transform: uppercase;" autocomplete="off" maxlength="20" 
 								class="form-control" th:value="${editarcita.dueno_mascota}" />
 						</div>
 						<div class="card-footer text-body-secondary last-element-in-form"
